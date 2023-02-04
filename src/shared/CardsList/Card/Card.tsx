@@ -6,7 +6,27 @@ import Menu from './Menu/Menu'
 import Preview from './Preview/Preview'
 import TextContent from './TextContent/TextContent'
 
-const Card = () => {
+interface ICardProps {
+	authorName: string
+	createdAt: number
+	title: string
+	postUrl: string
+	previewImg: string
+	commentsNumber: number
+	karma: number
+}
+
+const Card = (props: ICardProps) => {
+	const {
+		authorName,
+		createdAt, // meta data
+		title,
+		postUrl, // title
+		previewImg, // preview
+		commentsNumber,
+		karma,
+	} = props
+
 	return (
 		<li className={styles.card}>
 			<TextContent />

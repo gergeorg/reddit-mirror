@@ -2,12 +2,29 @@ import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { tokenContext } from '../shared/context/tokenContext'
 
-interface IPostData {
-	posts?: any[]
+interface IOriginalPost {
+	data: IPostData
+	kind: string
+}
+
+export interface IPostData {
+	author: string
+	created_utc: number
+	title: string
+	permalink: string // url post
+	url: string // image post
+	id: string
+	num_comments: number
+	ups: number
+}
+
+function getNecessaryKeys(posts: IOriginalPost[]) {
+	const arr: IPostData[] = posts.map((post) => post.data)
+	return arr
 }
 
 export const usePostsData = () => {
-	const [posts, setPosts] = useState<IPostData>([])
+	const [posts, setPosts] = useState<IPostData[]>([])
 	const token = useContext(tokenContext)
 
 	useEffect(() => {
@@ -21,9 +38,7 @@ export const usePostsData = () => {
 					const postsData = resp.data.data.children
 					console.log('postsData: ', postsData)
 
-					// console.log('postsData: ', postsData[0].data.id)
-
-					setPosts(postsData)
+					setPosts(getNecessaryKeys(postsData))
 				})
 				.catch(console.log)
 		}

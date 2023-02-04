@@ -9,10 +9,18 @@ const CardsList = () => {
 
 	return (
 		<ul className={styles.cardsList}>
-			{/* {posts.map((post) => (
-				<Card key={post.data.id} post={post.data} />
-			))} */}
-			{/* <Card /> */}
+			{posts.map((post) => (
+				<Card
+					key={post.id}
+					createdAt={post.created_utc}
+					previewImg={post.url}
+					title={post.title}
+					authorName={post.author}
+					commentsNumber={post.num_comments}
+					karma={post.ups}
+					postUrl={post.permalink}
+				/>
+			))}
 		</ul>
 	)
 }
